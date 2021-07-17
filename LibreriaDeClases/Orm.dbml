@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="Colegio" Class="OrmDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=LAPTOP-E47KVU06;Initial Catalog=Colegio;Integrated Security=True" SettingsObjectName="LibreriaDeClases.Properties.Settings" SettingsPropertyName="ColegioConnectionString1" Provider="System.Data.SqlClient" />
+  <Table Name="colegio.alumno" Member="alumno">
+    <Type Name="alumno">
+      <Column Name="CodiAlumno" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Nombre" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Apellido" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Correo" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Clave" Type="System.String" DbType="NVarChar(12) NOT NULL" CanBeNull="false" />
+      <Association Name="alumno_calificacion" Member="calificacion" ThisKey="CodiAlumno" OtherKey="alumno_CodiAlumno" Type="calificacion" />
+    </Type>
+  </Table>
+  <Table Name="colegio.calificacion" Member="calificacion">
+    <Type Name="calificacion">
+      <Column Name="CodiCalificacion" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Calificacion" Member="Calificacion1" Type="System.Decimal" DbType="Decimal(1,1)" CanBeNull="true" />
+      <Column Name="Aprobo" Type="System.String" DbType="NVarChar(45)" CanBeNull="true" />
+      <Column Name="FechaCalificacion" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="Materia_CodiMateria" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="alumno_CodiAlumno" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="alumno_calificacion" Member="alumno" ThisKey="alumno_CodiAlumno" OtherKey="CodiAlumno" Type="alumno" IsForeignKey="true" />
+      <Association Name="materia_calificacion" Member="materia" ThisKey="Materia_CodiMateria" OtherKey="CodiMateria" Type="materia" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="colegio.materia" Member="materia">
+    <Type Name="materia">
+      <Column Name="CodiMateria" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="NombreMate" Type="System.String" DbType="NVarChar(70) NOT NULL" CanBeNull="false" />
+      <Column Name="profesores_IdentiProfe" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="materia_calificacion" Member="calificacion" ThisKey="CodiMateria" OtherKey="Materia_CodiMateria" Type="calificacion" />
+      <Association Name="profesores_materia" Member="profesores" ThisKey="profesores_IdentiProfe" OtherKey="IdentiProfe" Type="profesores" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="colegio.profesores" Member="profesores">
+    <Type Name="profesores">
+      <Column Name="IdentiProfe" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Nombre" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Apellido" Type="System.String" DbType="NVarChar(75) NOT NULL" CanBeNull="false" />
+      <Column Name="Edad" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Direccion" Type="System.String" DbType="NVarChar(90) NOT NULL" CanBeNull="false" />
+      <Column Name="Telefono" Type="System.String" DbType="NVarChar(15) NOT NULL" CanBeNull="false" />
+      <Column Name="Correo" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Clave" Type="System.String" DbType="NVarChar(12) NOT NULL" CanBeNull="false" />
+      <Association Name="profesores_materia" Member="materia" ThisKey="IdentiProfe" OtherKey="profesores_IdentiProfe" Type="materia" />
+    </Type>
+  </Table>
+</Database>
